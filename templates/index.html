@@ -42,6 +42,19 @@
                 <button class="aendern-btn">Ändern</button>
                 <a href="/loeschen/{{ loop.index0 }}" class="loeschen-link">Löschen</a>
             </div>
+            <div class="angebote">
+    <a class="angebot aldi"
+       target="_blank"
+       href="https://www.aldi-nord.de/suchergebnis.html?search={{ artikel.name }}">
+       Aldi
+    </a>
+
+    <a class="angebot rewe"
+       target="_blank"
+       href="https://www.rewe.de/suche/produkte/{{ artikel.name }}">
+       REWE
+    </a>
+</div>
         </div>
         {% endfor %}
     </div>

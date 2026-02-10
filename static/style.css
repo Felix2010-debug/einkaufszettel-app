@@ -120,6 +120,9 @@ Button:hover{
         justify-content: flex-end;  
         margin-left: 0; /* Buttons linksbündig */
     }
+    .angebote{
+        flex-direction: column;
+    }
 }
 
 
@@ -163,5 +166,35 @@ button, .aktionen a {
 .barcode-btn {
     margin-top: 10px;
     align-self: center;   /* 👈 wichtig */
+}
+
+
+.angebote {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.angebot {
+    flex: 1;
+    text-align: center;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+}
+
+.angebot.aldi {
+    background-color: #0a8f3c;
+}
+
+.angebot.rewe {
+    background-color: #cc0000;
+}
+
+.angebot:hover {
+    opacity: 0.85;
 }
 
