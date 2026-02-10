@@ -1,42 +1,52 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>Einkaufszettel</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="https://unpkg.com/quagga/dist/quagga.min.js"></script>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+<meta charset="UTF-8">
+<title>Einkaufszettel</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script src="https://unpkg.com/quagga/dist/quagga.min.js"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
 <body>
-    <div id="main">
-        <h1>Einkaufszettel</h1>
+<div id="info">
+    <a id="info2">
+        Der Barcode scan funktioniert leider nocht nicht.
+    </a>
+</div>
 
-        <div class="add-section">
-            <h2>Artikel hinzufügen</h2>
-            <form action="/hinzufuegen" method="post">
-                Name: <input type="text" name="name" required>
-                Anzahl: <input type="number" name="anzahl" min="1" required>
-                <button type="submit">Hinzufügen</button>
-            </form>
+<div id="main">
+    <h1>Einkaufszettel</h1>
 
-            <button class="barcode-btn" onclick="startScanner()">Barcode Scannen</button>
-        </div>
+    <div class="add-section">
+        <h2>Artikel hinzufügen</h2>
+        <form action="/hinzufuegen" method="post">
+            <a id="name">Name:</a> <input type="text" name="name" required>
+            <a id="count">Anzahl:</a><input type="number" name="anzahl" min="1" required>
+            <button type="submit">Hinzufügen</button>
+        </form>
 
-        <div id="scanner" style="display: none; width: 300px; height: 200px; border: 1px solid #000;"></div>
-
-        <h2>Aktuelle Artikel</h2>
-        <ul id="artikel-liste">
-            {% for artikel in einkaufszettel %}
-            <li>
-                {{ artikel.anzahl }}x {{ artikel.name }}
-                <form action="/aendern/{{ loop.index0 }}" method="post" style="display:inline">
-                    <input type="number" name="anzahl" min="1" required>
-                    <button type="submit">Ändern</button>
-                </form>
-                <a href="/loeschen/{{ loop.index0 }}" id="loeschen-link">Löschen</a>
-            </li>
-            {% endfor %}
-        </ul>
+        <button class="barcode-btn">Barcode Scannen</button>
     </div>
+
+    <div id="scanner" style="display:none; width: 300px; height: 200px; border:1px solid #000;"></div>
+
+    <h2>Aktuelle Artikel</h2>
+    <div id="artikel-container">
+        {% for artikel in einkaufszettel %}
+        <div class="artikel-balken" data-index="{{ loop.index0 }}">
+            <div class="anzahl">{{ artikel.anzahl }}</div>
+            <div class="name">{{ artikel.name }}</div>
+            <div class="aktionen">
+                <button class="aendern-btn">Ändern</button>
+                <a href="/loeschen/{{ loop.index0 }}" class="loeschen-link">Löschen</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
 </body>
 </html>
+
