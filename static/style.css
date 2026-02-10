@@ -1,0 +1,89 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    padding: 40px;
+    
+}
+
+
+form, ul {
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+input {
+    padding: 8px;
+}
+
+button {
+    padding: 8px;
+    border-radius: 5px;
+    background-color: #d6d6d6;
+}
+
+button:hover {
+    background-color: #8f8f8f;
+    color: white;
+    
+}
+
+li {
+    margin-top: 5px;
+}
+
+#loeschen-link {
+     display: inline-block;   /* GANZ WICHTIG */
+    padding: 6px 10px;
+    border: 2px solid red;
+    color: red;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+#loeschen-link:hover {
+    background-color: red;
+    color: white;
+}
+
+#hinzufuegen {
+    background-color: rgb(186, 248, 186);
+    border-color:  rgb(123, 163, 123);
+    transition: 0.2s;
+}
+
+#hinzufuegen:hover {
+     background-color: rgb(99, 129, 99);
+     color: white; 
+}
+
+#main{
+    background-color: rgb(175, 175, 175);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: -600px;
+}
+
+.add-section {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.barcode-btn {
+    background: #222;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+}
