@@ -1,17 +1,16 @@
 body {
     font-family: Arial, sans-serif;
     background: #f5f5f5;
-    padding: 40px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-   
     align-items: center;
 }
 
 #info{
     padding: 10px;
     Margin: 10px; 
-    background-color: #e6a4a4;
+    background-color: #cf7070;
     border-radius: 10px;
 }
 
@@ -27,6 +26,7 @@ Button {
 
 #name {
     padding: 4px;
+    flex-grow: 1;
 }
 
 #count{
@@ -40,22 +40,28 @@ Button:hover{
 }
 
 #main {
-    width: 600px;
-    background: #e0e0e0;
+    background-color: rgb(211, 210, 210);
     padding: 20px;
     border-radius: 10px;
+    width: 100%;       /* fast die gesamte Bildschirmbreite */
+    max-width: 500px; /* für große Bildschirme begrenzt */
+    margin: 20px auto; /* zentriert horizontal */
+    box-sizing: border-box;
 }
 
+
 .artikel-balken {
-    display: flex;
-    justify-content: space-between;
+       display: flex;
+    flex-direction: row;
     align-items: center;
     background: #8fc1e3;
     margin: 5px 0;
     padding: 10px;
     border-radius: 6px;
     color: #fff;
-    transition: background 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+    transition: 0.2s;
 }
 
 .artikel-balken:hover {
@@ -93,3 +99,69 @@ Button:hover{
 .aktionen a:hover {
     background-color: #cc3333;
 }
+
+.aktionen {
+    display: flex;      /* Buttons nebeneinander */
+    gap: 5px;           /* Abstand zwischen den Buttons */  
+    margin-left: auto; 
+    justify-content: flex-end;
+     /* Bei kleinen Bildschirmen umbrechen */
+}
+
+
+/* Kleine Bildschirme */
+@media screen and (max-width: 400px) {
+    .artikel-balken {
+        flex-direction: column;        /* Balken stapeln */
+        align-items: stretch;
+    }
+    .aktionen {
+        width: 100%;
+        justify-content: flex-end;  
+        margin-left: 0; /* Buttons linksbündig */
+    }
+}
+
+
+button, .aktionen a {
+    font-size: 16px; /* besser für Finger */
+    padding: 8px 12px;
+}
+
+.add-section input {
+    font-size: 16px;
+    padding: 8px;
+}
+
+.add-section input, .add-section button {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.add-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* 🔥 zentriert alles */
+    text-align: center;
+}
+
+.add-section form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.add-section input,
+.add-section button {
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.barcode-btn {
+    margin-top: 10px;
+    align-self: center;   /* 👈 wichtig */
+}
+
