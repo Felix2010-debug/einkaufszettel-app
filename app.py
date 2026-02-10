@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, redirect, jsonify
-import requests  # für Open Food Facts API
+import requests
 
 app = Flask(__name__)
 
-# Unser Einkaufszettel (temporär im Speicher)
+# Temporärer Einkaufszettel im Speicher
 einkaufszettel = []
 
 # Startseite
@@ -19,7 +19,7 @@ def hinzufuegen():
 
     if name and anzahl and anzahl.isdigit():
         einkaufszettel.append({
-            "name": name,
+            "name": name.strip(),
             "anzahl": int(anzahl)
         })
 
@@ -29,10 +29,8 @@ def hinzufuegen():
 @app.route('/aendern/<int:index>', methods=['POST'])
 def aendern(index):
     neue_anzahl = request.form.get('anzahl')
-
     if neue_anzahl and neue_anzahl.isdigit() and 0 <= index < len(einkaufszettel):
         einkaufszettel[index]['anzahl'] = int(neue_anzahl)
-
     return redirect('/')
 
 # Artikel löschen
@@ -42,8 +40,7 @@ def loeschen(index):
         einkaufszettel.pop(index)
     return redirect('/')
 
-# Barcode hinzufügen
-# Diese Route wird per JavaScript / Fetch aufgerufen, wenn ein Barcode gescannt wird
+# Barcode hinzufügen per Fetch
 @app.route('/add_barcode', methods=['POST'])
 def add_barcode():
     data = request.get_json()
@@ -52,7 +49,6 @@ def add_barcode():
 
     barcode = data["barcode"]
 
-    # Open Food Facts API abfragen
     try:
         url = f"https://world.openfoodfacts.org/api/v0/product/{barcode}.json"
         response = requests.get(url, timeout=5)
@@ -62,8 +58,6 @@ def add_barcode():
             produkt_info = data_api.get("product", {})
             produkt_name = produkt_info.get("product_name", "").strip()
             marke = produkt_info.get("brands", "").strip()
-
-            # Name, Marke oder Fallback auf Barcode
             if produkt_name:
                 anzeige_name = f"{produkt_name} ({marke})" if marke else produkt_name
             elif marke:
@@ -76,7 +70,7 @@ def add_barcode():
         print("Fehler bei API:", e)
         anzeige_name = f"Produkt {barcode}"
 
-    # In die Einkaufsliste einfügen
+    # Nur einmal hinzufügen
     einkaufszettel.append({
         "name": anzeige_name,
         "anzahl": 1
@@ -84,7 +78,5 @@ def add_barcode():
 
     return jsonify({"status": "ok", "name": anzeige_name})
 
-
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
-

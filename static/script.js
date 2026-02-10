@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     scanBtn.addEventListener('click', startScanner);
 
     const container = document.querySelector('#artikel-container');
+    
+    // Event Delegation für "Ändern"-Buttons
     container.addEventListener('click', (e) => {
         if (!e.target.classList.contains('aendern-btn')) return;
 
@@ -12,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const index = balken.dataset.index;
         const anzahlDiv = balken.querySelector('.anzahl');
 
-        if (balken.querySelector('input')) return;
+        if (balken.querySelector('input')) return; // bereits Eingabefeld vorhanden
 
         const aktuelleAnzahl = anzahlDiv.textContent;
         anzahlDiv.innerHTML = `
@@ -29,7 +31,12 @@ function startScanner() {
     scannerElement.style.display = 'block';
 
     Quagga.init({
-        inputStream: { name: "Live", type: "LiveStream", target: scannerElement, constraints: { facingMode: "environment" } },
+        inputStream: {
+            name: "Live",
+            type: "LiveStream",
+            target: scannerElement,
+            constraints: { facingMode: "environment" }
+        },
         decoder: { readers: ["ean_reader"] }
     }, (err) => {
         if (err) { console.error(err); alert("Kamera konnte nicht gestartet werden."); return; }
@@ -76,4 +83,3 @@ function startScanner() {
         .catch(err => { console.error(err); alert("Fehler beim Hinzufügen"); });
     });
 }
-
